@@ -1,7 +1,13 @@
 <template>
   <div>
     <ul>
-      <ContactItem />
+      <ContactItem
+        v-for="(contact, i) in contacts"
+        :key="contact.id"
+        :contact="contact"
+        :index="i"
+        @removeContact="removeContact"
+      />
     </ul>
   </div>
 </template>
@@ -14,6 +20,7 @@ export default {
   components: {
     ContactItem
   },
+  props: ["contacts"],
   methods: {
     removeContact(id) {
       this.$emit("removeContact", id);

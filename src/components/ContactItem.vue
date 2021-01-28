@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li v-for="(contact, index) in contactsListed" :key="contact.id">
+    <li>
       <span>{{ index + 1 }}</span>
       <span>{{ contact.name }}</span>
       <span>{{ contact.sername }}</span>
@@ -9,7 +9,6 @@
       <router-link :to="`/info/${contact.id}`">
         {{ contact.name }} info
       </router-link>
-      <button @click="remove">Yes</button>
       <transition name="after">
         <div v-if="showReq" class="after-mask">
           <div class="after-container">
@@ -17,7 +16,7 @@
               Are you sure?
             </p>
             <div class="btn">
-              <button @click="remove">Yes</button>
+              <button @click="removeContact">Yes</button>
               <button @click="showReq = false">No</button>
             </div>
           </div>
@@ -28,27 +27,25 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "ContactItem",
-  data: () => ({
-    showReq: false,
-    ContactInfo: false
-  }),
-  computed: {
-    ...mapGetters("contact", ["contactsListed"])
-  },
-  methods: {
-    remove() {
-      console.log(this.$store.index);
-      // let id = this.contact.id;
-      // this.$store.commit("REMOVE_CONTACT", id);
+  props: {
+    contact: {
+      type: Object,
+      required: true
+    },
+    index: {
+      type: Number,
+      required: true
     }
-    // ...mapActions("contact", ["removeContact"]),
-    // remove() {
-    //   this.removeContact(this.contact.id);
-    // }
+  },
+  data: () => ({
+    showReq: false
+  }),
+  methods: {
+    removeContact() {
+      this.$emit("removeContact", this.contact.id);
+    }
   }
 };
 </script>
@@ -92,7 +89,7 @@ li {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(136, 136, 136, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,7 +103,7 @@ li {
   padding: 20px 30px;
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(131, 131, 131, 0.33);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   animation: opacity 0.3s linear;
 }

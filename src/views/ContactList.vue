@@ -23,7 +23,11 @@
       </div>
       <div class="section-content-container">
         <div class="section-content-container_contact">
-          <Contacts v-if="contacts.length" @removeContact="removeContact" />
+          <Contacts
+            v-if="contacts.length"
+            :contacts="contacts"
+            @removeContact="removeContact"
+          />
           <p class="empty" v-else>Not Contacts!</p>
         </div>
       </div>
@@ -53,7 +57,8 @@ export default {
     removeContact(id) {
       this.contacts = this.contacts.filter(c => c.id !== id);
     },
-    addContact() {
+    addContact(contact) {
+      this.contacts.push(contact);
       this.showAddContact = false;
     }
   }

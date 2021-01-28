@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "AddContact",
   data: () => ({
@@ -18,7 +16,6 @@ export default {
     tel: ""
   }),
   methods: {
-    ...mapActions("contact", ["addNewContact"]),
     onSubmit() {
       if ((this.name, this.sermane, this.tel)) {
         const newContact = {
@@ -27,8 +24,10 @@ export default {
           sername: this.sername,
           tel: this.tel
         };
-        this.addNewContact(newContact);
-        this.$emit("addContact");
+        this.$emit("addContact", newContact);
+        this.name = "";
+        this.sername = "";
+        this.tel = "";
       } else {
         alert("Заполните форму!");
       }
