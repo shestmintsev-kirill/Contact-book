@@ -8,15 +8,15 @@ const contactStore = {
     ]
   },
   getters: {
-    contactsListed: ({ contacts }) => contacts
+    contactsListed: ({ contacts }) => contacts,
+    getContactById: ({ contacts }) => id => {
+      return contacts.find(contacts => contacts.id === id);
+    }
   },
   mutations: {
     ADD_CONTACT(state, contact) {
       state.contacts.push(contact);
     },
-    // REMOVE_CONTACT(state, id) {
-    //   state.contacts = state.contacts.filter(c => c.id !== id);
-    // }
     REMOVE_CONTACT(state, id) {
       state.contacts = state.contacts.filter(c => c.id !== id);
     }
@@ -25,10 +25,10 @@ const contactStore = {
     addNewContact({ commit }, contact) {
       const newContact = { ...contact, id: String(Math.random() * 10) };
       commit("ADD_CONTACT", newContact);
+    },
+    removeContact({ commit }, id) {
+      commit("REMOVE_CONTACT", id);
     }
-    // removeContact({ commit }, contact) {
-    //   commit("REMOVE_CONTACT", contact);
-    // }
   }
 };
 

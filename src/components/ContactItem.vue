@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li v-for="(contact, index) in contactsListed" :key="contact.id">
+    <li>
       <span>{{ index + 1 }}</span>
       <span>{{ contact.name }}</span>
       <span>{{ contact.sername }}</span>
@@ -9,7 +9,6 @@
       <router-link :to="`/info/${contact.id}`">
         {{ contact.name }} info
       </router-link>
-      <button @click="remove">Yes</button>
       <transition name="after">
         <div v-if="showReq" class="after-mask">
           <div class="after-container">
@@ -28,10 +27,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ContactItem",
+  props: {
+    index: {
+      type: Number
+    },
+    contact: {
+      type: Object
+    }
+  },
   data: () => ({
     showReq: false,
     ContactInfo: false
@@ -40,15 +47,11 @@ export default {
     ...mapGetters("contact", ["contactsListed"])
   },
   methods: {
+    ...mapActions("contact", ["removeContact"]),
     remove() {
-      console.log(this.$store.index);
-      // let id = this.contact.id;
-      // this.$store.commit("REMOVE_CONTACT", id);
+      console.log(this.contact.id);
+      this.removeContact(this.contact.id);
     }
-    // ...mapActions("contact", ["removeContact"]),
-    // remove() {
-    //   this.removeContact(this.contact.id);
-    // }
   }
 };
 </script>
