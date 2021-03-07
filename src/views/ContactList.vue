@@ -4,6 +4,9 @@
       <div class="section-content-title">
         <h1>Contact Page</h1>
       </div>
+      <div class="section-content-title">
+        <h1>{{ contactsListed.length }} contacts</h1>
+      </div>
       <div class="section-content_add">
         <button
           class="btnAdd"
@@ -19,42 +22,88 @@
         >
           Close
         </button>
-        <AddContact @addContact="addContact" v-if="showAddContact" />
+        <AddContact
+          @closeContact="showAddContact = false"
+          v-if="showAddContact"
+        />
       </div>
       <div class="section-content-container">
         <div class="section-content-container_contact">
-          <Contacts v-if="contacts.length" @removeContact="removeContact" />
-          <p class="empty" v-else>Not Contacts!</p>
+          <div>
+            <ul>
+              <ContactItem
+                v-for="(contact, index) in contactsListed"
+                :key="contact.id"
+                :index="index"
+                :contact="contact"
+              />
+            </ul>
+            <button @click="sortContacts">
+              SORT
+            </button>
+            <button @click="noSortContacts">no SORT</button>
+          </div>
+          <p v-if="contactsListed.length < 1" class="empty">Not Contacts!</p>
         </div>
       </div>
     </div>
+    <Notification v-if="showNotification" />
   </div>
 </template>
 
 <script>
 import AddContact from "../components/AddContact.vue";
-import Contacts from "../components/Contacts.vue";
+import ContactItem from "../components/ContactItem.vue";
+import Notification from "../components/Notification.vue";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ContactList",
   components: {
-    Contacts,
-    AddContact
+    ContactItem,
+    AddContact,
+    Notification
   },
   data: () => ({
-    contacts: [
-      { id: 1, name: "Ivan", sername: "Ivanov", tel: "+79999999914" },
-      { id: 2, name: "Anton", sername: "Fedorov", tel: "+79999999915" },
-      { id: 3, name: "Alina", sername: "Vlasova", tel: "+79999999916" }
-    ],
-    showAddContact: false
+    showAddContact: false,
+    showNotification: false
   }),
+  computed: {
+    ...mapGetters("contact", ["contactsListed"])
+    // sortContacts() {
+    //   return this.contactsListed.sort((prev, next) => {
+    //     if (prev.name < next.name) return -1;
+    //     if (prev.name < next.name) return 1;
+    //   });
+    // }
+  },
   methods: {
-    removeContact(id) {
-      this.contacts = this.contacts.filter(c => c.id !== id);
+    ...mapMutations("contact", ["LOCAL_DATA"]),
+    sortContacts() {
+      this.contactsListed.sort((prev, next) => {
+        if (prev.name < next.name) return -1;
+        if (prev.name < next.name) return 1;
+      });
     },
-    addContact() {
-      this.showAddContact = false;
+    noSortContacts() {
+      this.contactsListed.sort((prev, next) => {
+        if (prev.id < next.id) return -1;
+        if (prev.id < next.id) return 1;
+      });
+    },
+    test() {
+      console.log(this.sortContacts());
+    }
+  },
+  watch: {
+    contactsListed() {
+      localStorage.contactsListed = JSON.stringify(this.contactsListed);
+    }
+  },
+  created() {
+    if (localStorage.contactsListed) {
+      const data = JSON.parse(localStorage.contactsListed);
+      this.LOCAL_DATA(data);
     }
   }
 };

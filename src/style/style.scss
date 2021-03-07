@@ -1,0 +1,57 @@
+//Mixin modal
+@mixin modal {
+  .after-mask {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(136, 136, 136, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .after-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(131, 131, 131, 0.33);
+    transition: all 0.3s ease;
+    animation: opacity 0.3s linear;
+  }
+
+  .after-enter {
+    opacity: 0;
+  }
+
+  .after-leave-active {
+    opacity: 0;
+  }
+
+  .after-enter .after-container,
+  .after-leave-active .after-container {
+    transform: scale(1.1);
+  }
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+//Mixin modal
