@@ -7,7 +7,9 @@
             Are you sure?
           </p>
           <div class="btn">
-            <button @click="$emit('remove')">Yes</button>
+            <button @click="$emit('remove')">
+              Yes
+            </button>
             <button @click="$emit('closeModal')">No</button>
           </div>
         </div>

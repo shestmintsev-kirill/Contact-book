@@ -9,14 +9,13 @@
           placeholder="Sername"
           type="text"
         />
-        <input v-model="tel" placeholder="Tel: 7(900)1234567" type="number" />
-        <div class="flex-wrapper">
-          <span v-if="isActive">&#10004;</span>
-          <span v-if="!isActive">&#10008;</span>
-          <p :class="{ active: isActive }" class="validTel">
-            Tel value 11, this {{ tel.length }}
-          </p>
-        </div>
+        <input
+          v-model="tel"
+          placeholder="Tel: 7(900)1234567"
+          type="number"
+          :disabled="disabled"
+        />
+        <ValidTel :tel="tel" />
         <button type="submit">add</button>
       </form>
     </div>
@@ -25,14 +24,17 @@
 
 <script>
 import { mapActions } from "vuex";
+import ValidTel from "./ValidTel";
 
 export default {
+  components: { ValidTel },
   name: "AddContact",
   data: () => ({
     name: "",
     sername: "",
     tel: "",
-    isActive: false
+    // isActive: false,
+    disabled: false
   }),
   methods: {
     ...mapActions("contact", ["addNewContact"]),
@@ -58,9 +60,7 @@ export default {
   watch: {
     tel() {
       if (this.tel.length === 11) {
-        this.isActive = true;
-      } else {
-        this.isActive = false;
+        this.disabled = true;
       }
     }
   }
@@ -97,24 +97,5 @@ input {
 
 input + input {
   margin-top: 10px;
-}
-
-.active {
-  background: rgb(195, 255, 203) !important;
-}
-
-.validTel {
-  padding: 5px 10px;
-  border-radius: 10px;
-  background: rgb(255, 207, 207);
-}
-
-.flex-wrapper {
-  display: flex;
-  align-items: baseline;
-
-  span {
-    margin-right: 10px;
-  }
 }
 </style>

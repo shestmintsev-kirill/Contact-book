@@ -24,6 +24,7 @@
             <input v-model="name" type="text" />
             <input v-model="sername" type="text" />
             <input v-model="tel" type="number" />
+            <ValidTel :tel="tel" />
             <div class="btn-form-wrapper">
               <button type="submit">Edit</button>
               <button @click.prevent="showEdit = false" class="btn-exit">
@@ -38,10 +39,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import ValidTel from "../components/ValidTel";
 
 export default {
   name: "ContactInfo",
+  components: {
+    ValidTel
+  },
   data: () => ({
     showEdit: false,
     name: "",
@@ -51,11 +56,14 @@ export default {
   computed: {
     ...mapGetters("contact", ["contactsListed"]),
     findContact() {
+      // const storageContacts = JSON.parse(localStorage.contactsListed);
       return this.contactsListed.find(c => c.id == this.$route.params.id);
+      // return storageContacts.find(c => c.id == this.$route.params.id);
     }
   },
   methods: {
     ...mapActions("contact", ["editContact"]),
+    ...mapMutations("contact", ["LOCAL_DATA"]),
     edit() {
       const editedContact = {
         name: this.name,
@@ -73,12 +81,12 @@ export default {
       this.sername = this.findContact.sername;
       this.tel = this.findContact.tel;
     }
-    // edit: {
-    //   handler() {
-
-    //   },
-    //   deep: true
-    // }
+  },
+  created() {
+    if (localStorage.contactsListed) {
+      const data = JSON.parse(localStorage.contactsListed);
+      this.LOCAL_DATA(data);
+    }
   }
 };
 </script>

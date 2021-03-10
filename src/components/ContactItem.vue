@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import RemoveModal from "./RemoveModal";
 
 export default {
@@ -38,9 +38,7 @@ export default {
       type: Object
     }
   },
-  computed: {
-    ...mapGetters("contact", ["contactsListed"])
-  },
+
   methods: {
     ...mapMutations("contact", ["REMOVE_CONTACT"]),
     remove() {

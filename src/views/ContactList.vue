@@ -8,19 +8,14 @@
         <h1>{{ contactsListed.length }} contacts</h1>
       </div>
       <div class="section-content_add">
-        <button
-          class="btnAdd"
-          v-if="!showAddContact"
-          @click="showAddContact = !showAddContact"
-        >
+        <button class="btnAdd" @click="showAddContact = !showAddContact">
           Add contact
         </button>
         <button
-          class="btnAdd"
-          v-if="showAddContact"
-          @click="showAddContact = !showAddContact"
+          :class="{ btnSort: checkSortContacts }"
+          @click="checkSortContacts = !checkSortContacts"
         >
-          Close
+          SORT
         </button>
         <AddContact
           @closeContact="showAddContact = false"
@@ -38,16 +33,13 @@
                 :contact="contact"
               />
             </ul>
-            <button @click="sortContacts">
-              SORT
-            </button>
-            <button @click="noSortContacts">no SORT</button>
           </div>
           <p v-if="contactsListed.length < 1" class="empty">Not Contacts!</p>
         </div>
       </div>
     </div>
-    <Notification v-if="showNotification" />
+    <Notification :msgNotification="msgNotification" />
+    <!-- ДОБАВИТЬ НОТИФИКАЦИИ -->
   </div>
 </template>
 
@@ -66,44 +58,52 @@ export default {
   },
   data: () => ({
     showAddContact: false,
-    showNotification: false
+    showNotification: false,
+    checkSortContacts: false,
+    msgNotification: {
+      msgAdd: "Added!",
+      msgDel: "Deleted!",
+      msgEdit: "Edited!"
+    }
   }),
   computed: {
-    ...mapGetters("contact", ["contactsListed"])
-    // sortContacts() {
-    //   return this.contactsListed.sort((prev, next) => {
-    //     if (prev.name < next.name) return -1;
-    //     if (prev.name < next.name) return 1;
-    //   });
-    // }
+    ...mapGetters("contact", [
+      "contactsListed",
+      "notificationAdd",
+      "notificationRemove",
+      "notificationEdit"
+    ])
   },
   methods: {
-    ...mapMutations("contact", ["LOCAL_DATA"]),
-    sortContacts() {
-      this.contactsListed.sort((prev, next) => {
-        if (prev.name < next.name) return -1;
-        if (prev.name < next.name) return 1;
-      });
-    },
-    noSortContacts() {
-      this.contactsListed.sort((prev, next) => {
-        if (prev.id < next.id) return -1;
-        if (prev.id < next.id) return 1;
-      });
-    },
-    test() {
-      console.log(this.sortContacts());
-    }
+    ...mapMutations("contact", ["LOCAL_DATA"])
   },
   watch: {
     contactsListed() {
       localStorage.contactsListed = JSON.stringify(this.contactsListed);
+    },
+    checkSortContacts() {
+      localStorage.checkSort = JSON.stringify(this.checkSortContacts);
+      if (this.checkSortContacts) {
+        return this.contactsListed.sort((prev, next) => {
+          if (prev.name < next.name) return -1;
+          if (prev.name < next.name) return 1;
+        });
+      } else {
+        return this.contactsListed.sort((prev, next) => {
+          if (prev.id < next.id) return -1;
+          if (prev.id < next.id) return 1;
+        });
+      }
     }
   },
   created() {
     if (localStorage.contactsListed) {
       const data = JSON.parse(localStorage.contactsListed);
       this.LOCAL_DATA(data);
+    }
+    if (localStorage.checkSort) {
+      const checkSort = JSON.parse(localStorage.checkSort);
+      this.checkSortContacts = checkSort;
     }
   }
 };
@@ -113,6 +113,10 @@ export default {
 .section-outer {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+ul {
+  padding: 0;
 }
 
 h1 {
@@ -129,13 +133,17 @@ h1 {
   margin-right: auto;
 
   &_add {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
 
     .btnAdd {
       margin-bottom: 10px;
     }
   }
+}
+
+.btnSort {
+  background: rgb(209, 212, 255);
 }
 </style>
