@@ -44,6 +44,6 @@ export default {
 .validTel {
   padding: 5px 10px;
   border-radius: 10px;
-  background: rgb(255, 207, 207);
+  background: rgb(233, 233, 233);
 }
 </style>
