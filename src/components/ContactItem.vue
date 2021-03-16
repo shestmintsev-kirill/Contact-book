@@ -100,7 +100,7 @@ li {
 .card {
   width: 250px;
   border-radius: 5px;
-  padding: 0 15px 15px 20px;
+  padding: 0 15px 20px 15px;
   background: rgb(237, 255, 237);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.5s;

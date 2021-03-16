@@ -11,6 +11,12 @@
         <button class="btnAdd" @click="showAddContact = !showAddContact">
           Add contact
         </button>
+        <input
+          class="search"
+          type="text"
+          v-model="search"
+          placeholder="Search contact"
+        />
         <button
           :class="{ btnSort: checkSortContacts }"
           @click="checkSortContacts = !checkSortContacts"
@@ -25,17 +31,16 @@
       <div class="section-content-container">
         <div class="section-content-container_wrapper">
           <ContactItem
-            v-for="(contact, index) in contactsListed"
+            v-for="(contact, index) in searchContact"
             :key="contact.id"
             :index="index"
             :contact="contact"
           />
-          <p v-if="contactsListed.length < 1" class="empty">Not Contacts!</p>
+          <p v-if="searchContact.length < 1" class="empty">No Contacts!</p>
         </div>
       </div>
     </div>
     <Notification :msgNotification="msgNotification" />
-    <!-- ДОБАВИТЬ НОТИФИКАЦИИ -->
   </div>
 </template>
 
@@ -56,6 +61,7 @@ export default {
     showAddContact: false,
     showNotification: false,
     checkSortContacts: false,
+    search: "",
     msgNotification: {
       msgAdd: "Added!",
       msgDel: "Deleted!",
@@ -68,7 +74,15 @@ export default {
       "notificationAdd",
       "notificationRemove",
       "notificationEdit"
-    ])
+    ]),
+    searchContact() {
+      return this.contactsListed.filter(contact => {
+        return (
+          contact.name.toLowerCase().indexOf(this.search) !== -1 ||
+          contact.sername.toLowerCase().indexOf(this.search) !== -1
+        );
+      });
+    }
   },
   methods: {
     ...mapMutations("contact", ["LOCAL_DATA"])
@@ -147,11 +161,15 @@ h1 {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 
     .btnAdd {
-      margin-bottom: 10px;
       background: rgb(194, 236, 189);
       box-shadow: 0 2px 15px rgba(89, 255, 98, 0.5);
+    }
+
+    @media (max-width: 585px) {
+      flex-wrap: wrap;
     }
   }
 
@@ -165,7 +183,7 @@ h1 {
       flex-wrap: wrap;
       gap: 25px;
     }
-    @media (max-width: $screen-xs-max) {
+    @media (max-width: 585px) {
       &_wrapper {
         flex-direction: column;
       }
@@ -175,5 +193,27 @@ h1 {
 
 .btnSort {
   background: rgb(209, 212, 255);
+}
+
+.search {
+  width: 300px;
+  outline: none;
+  border-radius: 15px;
+  border: 0;
+  background: rgb(240, 240, 240);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06);
+  padding: 10px;
+  transition: 0.3s;
+
+  &:focus {
+    background: rgb(227, 230, 255);
+  }
+
+  @media (max-width: 585px) {
+    order: 1;
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+  }
 }
 </style>
