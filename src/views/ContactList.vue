@@ -160,11 +160,6 @@ h1 {
       }
     }
   }
-
-  @media (min-width: $screen-sm) {
-    &-container {
-    }
-  }
 }
 
 .btnSort {
