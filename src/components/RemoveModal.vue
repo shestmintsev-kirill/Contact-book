@@ -29,12 +29,6 @@ export default {
 
 @include modal;
 
-.after-wrapper {
-  width: 40%;
-  display: flex;
-  justify-content: center;
-}
-
 .btn {
   width: 100%;
   display: flex;

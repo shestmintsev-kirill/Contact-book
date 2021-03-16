@@ -1,39 +1,42 @@
 <template>
-  <div class="inner flex-center">
-    <div class="card flex-center">
-      <div class="card-container">
-        <ul class="contact">
-          <div class="wrapper-info">
-            <span>&#10004;</span>
-            <li>{{ findContact.name }}</li>
-          </div>
-          <div class="wrapper-info">
-            <span>&#10004;</span>
-            <li>{{ findContact.sername }}</li>
-          </div>
-          <div class="wrapper-info">
-            <span>&#9742;</span>
-            <li>+{{ findContact.tel }}</li>
-          </div>
-        </ul>
-      </div>
-      <button class="btn-edit" @click="showEdit = true">Edit</button>
-      <transition v-if="showEdit" name="after">
-        <div @click.self="showEdit = false" class="after-mask">
-          <form @submit.prevent="edit" class="after-container">
-            <input v-model="name" type="text" />
-            <input v-model="sername" type="text" />
-            <input v-model="tel" type="number" />
-            <ValidTel :tel="tel" />
-            <div class="btn-form-wrapper">
-              <button type="submit">Edit</button>
-              <button @click.prevent="showEdit = false" class="btn-exit">
-                &#10006;
-              </button>
+  <div class="">
+    <router-link class="link-home" to="/">Home</router-link>
+    <div class="inner flex-center">
+      <div class="card flex-center">
+        <div class="card-container">
+          <ul class="contact">
+            <div class="wrapper-info">
+              <span>&#10004;</span>
+              <li>{{ findContact.name }}</li>
             </div>
-          </form>
+            <div class="wrapper-info">
+              <span>&#10004;</span>
+              <li>{{ findContact.sername }}</li>
+            </div>
+            <div class="wrapper-info">
+              <span>&#9742;</span>
+              <li>+{{ findContact.tel }}</li>
+            </div>
+          </ul>
         </div>
-      </transition>
+        <button class="btn-edit" @click="showEdit = true">Edit</button>
+        <transition v-if="showEdit" name="after">
+          <div @click.self="showEdit = false" class="after-mask">
+            <form @submit.prevent="edit" class="after-container">
+              <input v-model="name" type="text" maxlength="12" />
+              <input v-model="sername" type="text" maxlength="12" />
+              <input v-model="tel" type="number" />
+              <ValidTel :validEdit="true" :tel="tel" />
+              <div class="btn-form-wrapper">
+                <button type="submit">Edit</button>
+                <button @click.prevent="showEdit = false" class="btn-exit">
+                  &#10006;
+                </button>
+              </div>
+            </form>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -56,9 +59,7 @@ export default {
   computed: {
     ...mapGetters("contact", ["contactsListed"]),
     findContact() {
-      // const storageContacts = JSON.parse(localStorage.contactsListed);
       return this.contactsListed.find(c => c.id == this.$route.params.id);
-      // return storageContacts.find(c => c.id == this.$route.params.id);
     }
   },
   methods: {
@@ -93,7 +94,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../style/style.scss";
-
 @include modal;
 
 input::-webkit-outer-spin-button,
@@ -149,7 +149,7 @@ input::-webkit-inner-spin-button {
 }
 
 .inner {
-  padding: 0 20px;
+  padding: 20px;
 
   .card {
     width: 300px;
@@ -161,6 +161,11 @@ input::-webkit-inner-spin-button {
       background: rgb(167, 255, 180);
       box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06);
       margin-bottom: 30px;
+      transition: all 0.3s;
+
+      &:hover {
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+      }
 
       .contact {
         padding: 20px;
@@ -187,7 +192,13 @@ input {
     }
   }
 }
-input:not(last-child) {
-  margin-bottom: 10px;
+
+input + input {
+  margin-top: 10px;
+}
+
+.link-home {
+  background: none;
+  font-size: 20px;
 }
 </style>

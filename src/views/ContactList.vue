@@ -15,7 +15,7 @@
           :class="{ btnSort: checkSortContacts }"
           @click="checkSortContacts = !checkSortContacts"
         >
-          SORT
+          Sort
         </button>
         <AddContact
           @closeContact="showAddContact = false"
@@ -23,17 +23,13 @@
         />
       </div>
       <div class="section-content-container">
-        <div class="section-content-container_contact">
-          <div>
-            <ul>
-              <ContactItem
-                v-for="(contact, index) in contactsListed"
-                :key="contact.id"
-                :index="index"
-                :contact="contact"
-              />
-            </ul>
-          </div>
+        <div class="section-content-container_wrapper">
+          <ContactItem
+            v-for="(contact, index) in contactsListed"
+            :key="contact.id"
+            :index="index"
+            :contact="contact"
+          />
           <p v-if="contactsListed.length < 1" class="empty">Not Contacts!</p>
         </div>
       </div>
@@ -110,9 +106,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../style/style.scss";
+
 .section-outer {
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: 20px;
 }
 
 ul {
@@ -139,6 +138,31 @@ h1 {
 
     .btnAdd {
       margin-bottom: 10px;
+    }
+  }
+
+  &-container {
+    display: flex;
+
+    &_wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+  }
+  @media (max-width: $screen-xs-max) {
+    &-container {
+      justify-content: center;
+      &_wrapper {
+        flex-direction: column;
+      }
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    &-container {
     }
   }
 }

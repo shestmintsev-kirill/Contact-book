@@ -1,4 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+// Variables
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+
+$screen-xs-max: 575px;
+$screen-sm-max: 767px;
+$screen-md-max: 991px;
+$screen-lg-max: 1199px;
+// Variables
+
 //Mixin modal
+
 @mixin modal {
   .after-mask {
     position: fixed;
@@ -15,7 +30,7 @@
   }
 
   .after-container {
-    width: 30%;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,3 +70,31 @@
   }
 }
 //Mixin modal
+
+button {
+  width: 100px;
+  height: 40px;
+  border: 0;
+  border-radius: 15px;
+  transition: 0.5s;
+  outline: none;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+a {
+  text-decoration: none;
+  background: rgb(216, 233, 255);
+  border-radius: 15px;
+  padding: 10px;
+  transition: 0.5s;
+  color: #000;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}

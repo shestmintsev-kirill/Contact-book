@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "ValidTel",
-  props: ["tel"],
+  props: ["tel", "validEdit"],
   data: () => ({
     isActive: false
   }),
@@ -23,6 +23,9 @@ export default {
         this.isActive = false;
       }
     }
+  },
+  created() {
+    this.isActive = this.validEdit;
   }
 };
 </script>
@@ -44,6 +47,6 @@ export default {
 .validTel {
   padding: 5px 10px;
   border-radius: 10px;
-  background: rgb(233, 233, 233);
+  background: rgb(255, 195, 195);
 }
 </style>
