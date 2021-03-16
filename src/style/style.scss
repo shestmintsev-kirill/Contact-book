@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400&display=swap');
 
 // Variables
 $screen-sm: 576px;
@@ -78,6 +78,7 @@ button {
   border-radius: 15px;
   transition: 0.5s;
   outline: none;
+  font-weight: 300;
 
   &:hover {
     transform: scale(1.05);
@@ -92,6 +93,7 @@ a {
   padding: 10px;
   transition: 0.5s;
   color: #000;
+  font-weight: 300;
 
   &:hover {
     transform: scale(1.05);

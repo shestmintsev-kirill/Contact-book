@@ -40,7 +40,7 @@ export default {
   display: flex;
   justify-content: center;
   width: 100px;
-  height: 50px;
+  height: 80px;
   position: fixed;
   top: 0;
   right: 0;

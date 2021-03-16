@@ -115,7 +115,7 @@ input::-webkit-inner-spin-button {
     width: 150px;
     border-radius: 15px;
     border: 0;
-    background: rgb(1, 255, 39);
+    background: rgb(93, 255, 118);
     padding: 10px 15px;
   }
 
@@ -158,7 +158,7 @@ input::-webkit-inner-spin-button {
     &-container {
       border-radius: 15px;
       border: 0;
-      background: rgb(167, 255, 180);
+      background: rgb(198, 253, 207);
       box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06);
       margin-bottom: 30px;
       transition: all 0.3s;

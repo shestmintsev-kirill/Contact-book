@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <router-link to="/">Home</router-link> -->
     <router-view />
   </div>
 </template>
@@ -12,5 +11,13 @@
 
 * {
   font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+#app {
+  background: url("https://cdn.pixabay.com/photo/2017/01/24/03/53/plant-2004483_1280.jpg")
+    fixed;
+  background-size: cover;
+  min-height: 100vh;
 }
 </style>

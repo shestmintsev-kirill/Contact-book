@@ -4,7 +4,10 @@ const contactStore = {
     contacts: [
       { name: "Kirill", sername: "Shestmintsev", tel: "79999679615", id: 1 },
       { name: "Anton", sername: "Ivanov", tel: "79991234567", id: 2 },
-      { name: "Ivan", sername: "Volkov", tel: "79009876543", id: 3 }
+      { name: "Ivan", sername: "Volkov", tel: "79009876543", id: 3 },
+      { name: "Andrew", sername: "Sidorov", tel: "79004662271", id: 4 },
+      { name: "Ivanna", sername: "Sorokina", tel: "79851664567", id: 5 },
+      { name: "Fedor", sername: "Kozlov", tel: "380501002267", id: 6 }
     ],
     showNotificationAdd: false,
     showNotificationRemove: false,

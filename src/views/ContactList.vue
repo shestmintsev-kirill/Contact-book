@@ -4,8 +4,8 @@
       <div class="section-content-title">
         <h1>Contact Page</h1>
       </div>
-      <div class="section-content-title">
-        <h1>{{ contactsListed.length }} contacts</h1>
+      <div class="section-content-counter">
+        <p>{{ contactsListed.length }} contacts</p>
       </div>
       <div class="section-content_add">
         <button class="btnAdd" @click="showAddContact = !showAddContact">
@@ -111,7 +111,7 @@ export default {
 .section-outer {
   padding-left: 20px;
   padding-right: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 ul {
@@ -120,6 +120,8 @@ ul {
 
 h1 {
   text-align: center;
+  margin-top: 0;
+  font-weight: 300;
 }
 
 .empty {
@@ -131,6 +133,16 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 
+  &-title {
+    padding-top: 15px;
+  }
+
+  &-counter {
+    text-align: center;
+    font-weight: 100;
+    font-size: 25px;
+  }
+
   &_add {
     width: 100%;
     display: flex;
@@ -138,6 +150,8 @@ h1 {
 
     .btnAdd {
       margin-bottom: 10px;
+      background: rgb(194, 236, 189);
+      box-shadow: 0 2px 15px rgba(89, 255, 98, 0.5);
     }
   }
 
@@ -151,10 +165,7 @@ h1 {
       flex-wrap: wrap;
       gap: 25px;
     }
-  }
-  @media (max-width: $screen-xs-max) {
-    &-container {
-      justify-content: center;
+    @media (max-width: $screen-xs-max) {
       &_wrapper {
         flex-direction: column;
       }

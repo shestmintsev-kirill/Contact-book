@@ -98,7 +98,7 @@ li {
 }
 
 .card {
-  width: 210px;
+  width: 250px;
   border-radius: 5px;
   padding: 0 15px 15px 20px;
   background: rgb(237, 255, 237);
@@ -106,11 +106,16 @@ li {
   transition: all 0.5s;
 
   &:hover {
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   }
 
   &-index {
     align-self: flex-start;
+    font-weight: 300;
+  }
+
+  &-tel {
+    font-weight: 300;
   }
 
   &-body {
