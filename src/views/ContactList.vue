@@ -78,8 +78,10 @@ export default {
     searchContact() {
       return this.contactsListed.filter(contact => {
         return (
-          contact.name.toLowerCase().indexOf(this.search) !== -1 ||
-          contact.sername.toLowerCase().indexOf(this.search) !== -1
+          contact.name.toLowerCase().indexOf(this.search.toLowerCase()) !==
+            -1 ||
+          contact.sername.toLowerCase().indexOf(this.search.toLowerCase()) !==
+            -1
         );
       });
     }
