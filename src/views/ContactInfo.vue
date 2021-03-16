@@ -66,14 +66,18 @@ export default {
     ...mapActions("contact", ["editContact"]),
     ...mapMutations("contact", ["LOCAL_DATA"]),
     edit() {
-      const editedContact = {
-        name: this.name,
-        sername: this.sername,
-        tel: this.tel,
-        id: this.findContact.id
-      };
-      this.editContact(editedContact);
-      this.$router.push("/");
+      if (this.tel.length === 11) {
+        const editedContact = {
+          name: this.name,
+          sername: this.sername,
+          tel: this.tel,
+          id: this.findContact.id
+        };
+        this.editContact(editedContact);
+        this.$router.push("/");
+      } else {
+        alert("Telephone number is not valid!");
+      }
     }
   },
   watch: {
