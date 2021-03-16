@@ -33,17 +33,15 @@ export default {
     name: "",
     sername: "",
     tel: "",
-    // isActive: false,
     disabled: false
   }),
   methods: {
     ...mapActions("contact", ["addNewContact"]),
     onSubmit() {
       if (
-        (this.name,
-        this.sermane,
-        this.name.length > 3 && this.sername.length > 2,
-        this.tel.length === 11)
+        this.sername.length > 2 &&
+        this.name.length > 2 &&
+        this.tel.length === 11
       ) {
         const newContact = {
           name: this.name,
@@ -53,7 +51,7 @@ export default {
         this.addNewContact(newContact);
         this.$emit("closeContact");
       } else {
-        alert("Fix!");
+        alert("Is not valid!");
       }
     }
   },

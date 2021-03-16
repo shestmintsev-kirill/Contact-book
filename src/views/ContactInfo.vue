@@ -66,7 +66,12 @@ export default {
     ...mapActions("contact", ["editContact"]),
     ...mapMutations("contact", ["LOCAL_DATA"]),
     edit() {
-      if (this.tel.length === 11) {
+      if (
+        (this.tel.length === 11) &
+        (this.name !== this.findContact.name ||
+          this.sername !== this.findContact.sername ||
+          this.tel !== this.findContact.tel)
+      ) {
         const editedContact = {
           name: this.name,
           sername: this.sername,
@@ -75,8 +80,10 @@ export default {
         };
         this.editContact(editedContact);
         this.$router.push("/");
-      } else {
+      } else if (this.tel.length !== 11) {
         alert("Telephone number is not valid!");
+      } else {
+        alert("Edit please!");
       }
     }
   },
